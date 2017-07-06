@@ -29,3 +29,12 @@ services:
       - "MYSQL_DATABASE=dockerApp"
     ports:
         - "33061:3306"
+  angular:
+    container_name: angular
+    command: "npm start -- --host=0.0.0.0"
+    build: ./angulara-front-end
+    volumes: 
+      - ./angulara-front-end:/usr/src/app
+      - ./angulara-front-end/node_modules:/usr/src/app/node_modules
+    ports:
+      - "4200:4200"
