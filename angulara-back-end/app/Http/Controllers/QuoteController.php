@@ -11,10 +11,10 @@ class QuoteController extends Controller
     public function postQuote(Request $request){
         $user = JWTAuth::parseToken()->toUser();
         $this->validate($request, [
-            'comment' => 'required'
+            'content' => 'required'
         ]);
         $quote = new Quote();
-        $quote->comment = $request->input('comment');
+        $quote->content = $request->input('content');
         $quote->save();
         return response()->json(['quote' => $quote, 'user' => $user], 201);
     }
@@ -34,7 +34,7 @@ class QuoteController extends Controller
         if(!$quote){
             return response()->json(['message' => 'Not found'], 404);
         }
-        $quote->comment = $request->input('comment');
+        $quote->comment = $request->input('content');
         $quote->save();
         return response()->json(['quote' => $quote], 200);
     }

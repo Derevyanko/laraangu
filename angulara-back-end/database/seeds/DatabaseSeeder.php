@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         DB::table('qoutes')->insert([
-            'comment' => str_random(10)
+            'content' => str_random(10)
         ]);
     }
 }
