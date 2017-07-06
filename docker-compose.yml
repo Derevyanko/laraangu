@@ -35,6 +35,6 @@ services:
     build: ./angulara-front-end
     volumes: 
       - ./angulara-front-end:/usr/src/app
-      - ./angulara-front-end/node_modules:/usr/src/app/node_modules
+      - /usr/src/app/node_modules
     ports:
       - "4200:4200"
