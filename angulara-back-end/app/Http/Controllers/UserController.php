@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
+
 class UserController extends Controller
 {
     public function signup(Request $request)
@@ -23,11 +24,32 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password'))
         ]);
-        $user -> save();
-        return response()->json([
-            'message' => 'Success'
-        ], 201);
 
+        $create_user = $user->save();
+
+        if($create_user){
+            $credientals = $request->only('email', 'password');
+            try{
+                if(!$token = JWTAuth::attempt($credientals)){
+                    return response()->json([
+                        'error' => 'Invalid Credential'
+                    ], 401);
+                }
+            }catch (JWTException $e){
+                return response()->json([
+                    'error' => 'Could not create token'
+                ], 500);
+            }
+            return response()->json([
+                'token' => $token,
+                'message' => 'Success'
+            ], 201);
+        }else{
+
+            return response()->json([
+                'message' => 'Error'
+            ], 401);
+        }
     }
 
     public function signin(Request $request)
@@ -36,6 +58,7 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+
         $credientals = $request->only('email', 'password');
         try{
             if(!$token = JWTAuth::attempt($credientals)){
@@ -52,5 +75,14 @@ class UserController extends Controller
         return response()->json([
             'token' => $token
         ], 200);
+    }
+
+    public function get_auth_user(){
+
+        if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['user_not_found'], 404);
+        }
+
+        return response()->json(compact('user'));
     }
 }

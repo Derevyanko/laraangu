@@ -31,3 +31,7 @@ Route::post('/users', [
 Route::post('/user/signin', [
     'uses' => 'UserController@signin'
 ]);
+
+Route::get('/get_auth_user', [
+    'uses' => 'UserController@get_auth_user'
+]);
