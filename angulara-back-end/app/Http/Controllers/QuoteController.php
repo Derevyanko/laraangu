@@ -34,7 +34,7 @@ class QuoteController extends Controller
         if(!$quote){
             return response()->json(['message' => 'Not found'], 404);
         }
-        $quote->comment = $request->input('content');
+        $quote->content = $request->input('content');
         $quote->save();
         return response()->json(['quote' => $quote], 200);
     }
