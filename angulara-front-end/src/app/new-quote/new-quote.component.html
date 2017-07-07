@@ -1,3 +1,7 @@
-<p>
-  new-quote works!
-</p>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+	<div class="form-group">
+		<label for="content">Content</label>
+		<input class="form-control" type="text" id="content" name="content" ngModel>
+	</div>
+	<button class="btn btn-primary" type="submit">Submit</button>
+</form>

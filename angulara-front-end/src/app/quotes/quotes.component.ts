@@ -25,4 +25,13 @@ export class QuotesComponent implements OnInit {
   		);
   }
 
+  onDelete(quote: Quote) {
+    const position = this.quotes.findIndex(
+      (quoteEl: Quote) => {
+        return quoteEl.id == quote.id;
+      }
+    );
+    this.quotes.splice(position, 1);
+  }
+
 }
