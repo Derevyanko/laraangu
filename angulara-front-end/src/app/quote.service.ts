@@ -3,18 +3,22 @@ import { Http, Response, Headers } from "@angular/http";
 import "rxjs/Rx";
 import { Observable } from "rxjs";
 
+import { AuthService } from './auth.service';
+
 @Injectable()
 export class QuoteService {
-	constructor(private http: Http) {
+	constructor(private http: Http, private authService: AuthService) {
 
 	}
 
 	API = "http://localhost:8080";
 
 	addQuote(content: string) {
+		const token = this.authService.getToken();
+		console.log(token);
 		const body = JSON.stringify({content: content});
 		const headers = new Headers({"Content-Type": "application/json"});
-		return this.http.post(`${this.API}/api/quote`, body, {headers: headers});
+		return this.http.post(`${this.API}/api/quote?token=${token}`, body, {headers: headers});
 	}
 
 	getQuotes(): Observable<any> {
@@ -27,15 +31,17 @@ export class QuoteService {
 	}
 
 	updateQuote(id: number, newContent: string) {
+		const token = this.authService.getToken();
 		const body = JSON.stringify({content: newContent});
 		const headers = new Headers({"Content-Type": "application/json"});
-		return this.http.put(`${this.API}/api/quote/${id}`, body, {headers: headers})
+		return this.http.put(`${this.API}/api/quote/${id}?token=${token}`, body, {headers: headers})
 			.map(
 				(response: Response) => response.json()
 			);
 	}
 
 	deleteQuote(id: number) {
-		return this.http.delete(`${this.API}/api/quote/${id}`);
+		const token = this.authService.getToken();
+		return this.http.delete(`${this.API}/api/quote/${id}?token=${token}`);
 	}
 }
