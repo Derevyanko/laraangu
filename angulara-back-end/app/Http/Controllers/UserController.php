@@ -72,7 +72,10 @@ class UserController extends Controller
             ], 500);
         }
 
+        $user = JWTAuth::toUser($token);
+
         return response()->json([
+            'user' => $user,
             'token' => $token
         ], 200);
     }
