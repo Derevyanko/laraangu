@@ -12,6 +12,7 @@ import { QuoteService } from './quote.service';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { AuthService } from './auth.service';
+import { GetUserComponent } from './get-user/get-user.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AuthService } from './auth.service';
     QuotesComponent,
     NewQuoteComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    GetUserComponent
   ],
   imports: [
     BrowserModule,

@@ -40,4 +40,9 @@ export class AuthService {
 	getToken() {
 		return localStorage.getItem("token");
 	}
+
+	getUser() {
+		const token = this.getToken();
+		return this.http.get(`${this.API}/api/get_auth_user?token=${token}`);
+	}
 }

@@ -15,7 +15,6 @@ export class QuoteService {
 
 	addQuote(content: string) {
 		const token = this.authService.getToken();
-		console.log(token);
 		const body = JSON.stringify({content: content});
 		const headers = new Headers({"Content-Type": "application/json"});
 		return this.http.post(`${this.API}/api/quote?token=${token}`, body, {headers: headers});
