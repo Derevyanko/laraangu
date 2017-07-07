@@ -22,9 +22,11 @@ export class AuthService {
 			.map(
 				(response: Response) => {
 					const token = response.json().token;
+					const user = response.json().user;
 					const base64Url = token.split(".")[1];
 					const base64 = base64Url.replace("-", "+").replace("_", "/");
 					return {
+						user: user,
 						token: token,
 						decoded: JSON.parse(window.atob(base64))
 					};
@@ -33,6 +35,7 @@ export class AuthService {
 			.do(
 				tokenData => {
 					localStorage.setItem("token", tokenData.token);
+					localStorage.setItem("user", JSON.stringify(tokenData.user));
 				}
 			);
 	}

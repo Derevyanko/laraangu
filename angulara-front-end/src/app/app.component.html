@@ -1,15 +1,21 @@
 <div id="app">
   <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <a href="#" [routerLink]="['/']">Quotes</a> |
-        <a href="#" [routerLink]="['/new-quote']">Add a new Quote</a> |
-        <a href="#" [routerLink]="['/signup']">SignUp</a> |
-        <a href="#" [routerLink]="['/signin']">SignIn</a> |
-        <a href="#" [routerLink]="['/get-user']">Get User</a> |
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">AngularLaravel</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#" [routerLink]="['/']">Quotes</a></li>
+          <li><a href="#" [routerLink]="['/new-quote']">Add a new Quote</a></li>
+          <li><a href="#" [routerLink]="['/get-user']">Get User</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" [routerLink]="['/signup']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#" [routerLink]="['/signin']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
       </div>
-    </div>
-    <hr>
+    </nav>
     <div class="row">
       <div class="col-xs-12">
         <router-outlet></router-outlet>
