@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
+import { AlertService } from '../alert.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,16 +12,24 @@ import { AuthService } from '../auth.service';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alertService: AlertService) {}
 
   ngOnInit() {
+    this.authService.logout();
   }
 
   onSignin(form: NgForm) {
   	this.authService.signin(form.value.email, form.value.password)
   		.subscribe(
-  			tokenData => console.log(tokenData),
-  			error => console.log(error)
+  			tokenData => {
+          this.router.navigate([""]);
+        },
+  			error => {
+          this.alertService.error(error);
+        }
   		);
   }
 

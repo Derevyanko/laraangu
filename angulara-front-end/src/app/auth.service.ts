@@ -40,6 +40,11 @@ export class AuthService {
 			);
 	}
 
+	logout() {
+        localStorage.removeItem("token");
+    	localStorage.removeItem("user");
+    }
+
 	getToken() {
 		return localStorage.getItem("token");
 	}
