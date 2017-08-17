@@ -26,6 +26,10 @@ class QuoteController extends Controller
     public function getQuotes()
     {
         $quotes = Quote::with('user')->with('likes')->get();
+        foreach ($quotes as $quote) {
+            $count_like = count($quote->likes);
+            $quote->count_like = $count_like;
+        }
         $response = [
             'quotes' => $quotes
         ];
@@ -54,10 +58,14 @@ class QuoteController extends Controller
     {
         $quote_id = $request['quoteId'];
         $is_like = $request['islike'] === 'true';
-
+        $count_like = '';
         $update = false;
 
-        $quote = Quote::find($quote_id);
+        $quote = Quote::where('id', $quote_id)->with('likes')->get();
+        foreach ($quote as $quot){
+            $count_like = count($quot->likes);
+        }
+
         if(!$quote){
             return response()->json(['message' => 'Not found'], 404);
         }
@@ -65,12 +73,13 @@ class QuoteController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
 
         $like = $user->likes()->where('id_quote', $quote_id)->first();
+
         if($like) {
             $already_like = $like->likes;
             $update = true;
             if($already_like == $is_like){
                 $like->delete();
-                return response()->json(['like' => 'delete'], 200);
+                return response()->json(['like' => 'delete', 'count_like' => $count_like - 1], 200);
             }
         }else{
             $like = new Likes();
@@ -80,10 +89,10 @@ class QuoteController extends Controller
         $like->likes = $is_like;
         if($update){
             $like->update();
-            return response()->json(['like' => 'update'], 200);
+            return response()->json(['like' => 'update', 'count_like' => $count_like], 200);
         }else{
             $like->save();
-            return response()->json(['like' => 'save'], 200);
+            return response()->json(['like' => 'save', 'count_like' => $count_like + 1], 200);
         }
 
     }
