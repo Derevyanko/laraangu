@@ -1,16 +1,34 @@
-<div class="panel panel-default">
-	<div class="panel-body">
-		{{ quote.content }}
-	</div>
-	<div class="panel-footer">
-		<div *ngIf="editing">
-			<input type="text" [(ngModel)]="editValue">
-			<a href="#" (click)="onUpdate()">Save</a>
-			<a href="#" (click)="onCancel()">Cancel</a>
-		</div>
-		<div *ngIf="!editing">
-			<a href="#" (click)="onEdit()">Edit</a>
-			<a href="#" (click)="onDelete()">Delete</a>
-		</div>
-	</div>
+<div class="quote">
+  <div class="quote-item">
+    <a href="#">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png" alt="">
+    </a>
+    <div class="quote-item-body">
+      <div class="quote-content">{{ quote.content }}</div>
+      <div *ngIf="isLogin" class="editing-panel">
+        <div *ngIf="editing">
+          <input type="text" [(ngModel)]="editValue"><br><br>
+          <span (click)="onUpdate()">Save</span>
+          <span (click)="onCancel()">Cancel</span>
+        </div>
+        <div *ngIf="!editing">
+          <span (click)="onEdit()">Edit</span>
+          <span (click)="onDelete()">Delete</span>
+        </div>
+      </div>
+      <div class="quote-social">
+        <div class="quote-avatar">
+          <div class="avatar">
+            <!--<img src="" alt="">-->
+            <i class="fa fa-user-circle" aria-hidden="true"></i>
+          </div>
+          <div class="authorLockup">Code Girl</div>
+        </div>
+        <div *ngIf="isLogin" class="quote-like" (click)="onLikePost()">
+          <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <span class="like-count">12</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

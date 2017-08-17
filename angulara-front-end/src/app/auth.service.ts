@@ -53,4 +53,10 @@ export class AuthService {
 		const token = this.getToken();
 		return this.http.get(`${this.API}/api/get_auth_user?token=${token}`);
 	}
+
+	isLogin(): boolean {
+    if (localStorage.getItem("token") && localStorage.getItem("user")) {
+      return true;
+    }
+  }
 }

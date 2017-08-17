@@ -1,5 +1,6 @@
 import { Component, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from "./auth.service";
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements DoCheck {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
-  logged: boolean = true;
-
-  changeMenuLink() {
-  	if (localStorage.getItem("token") && localStorage.getItem("user")) {
-  		this.logged = false;
-  	}
-  }
+  logged: boolean = false;
 
   ngDoCheck() {
-  	this.changeMenuLink();
+  	this.logged = this.authService.isLogin();
   }
 }

@@ -15,14 +15,14 @@ export class QuotesComponent implements OnInit {
   constructor(private quoteService: QuoteService) { }
 
   ngOnInit() {
-  }
-
-  onGetQuotes() {
-  	this.quoteService.getQuotes()
-  		.subscribe(
-  			(quotes: Quote[]) => this.quotes = quotes,
-  			(error: Response) => console.log(error)
-  		);
+    this.quoteService.getQuotes()
+      .subscribe(
+        (quotes: Quote[]) => {
+          console.log(quotes);
+          this.quotes = quotes;
+        },
+        (error: Response) => console.log(error)
+      );
   }
 
   onDelete(quote: Quote) {
