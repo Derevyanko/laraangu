@@ -24,9 +24,9 @@
           </div>
           <div class="authorLockup">Code Girl</div>
         </div>
-        <div *ngIf="isLogin" class="quote-like" (click)="onLikePost()">
+        <div *ngIf="isLogin" class="quote-like" (click)="onLikeQuote()">
           <i class="fa fa-heart-o" aria-hidden="true"></i>
-          <span class="like-count">12</span>
+          <span class="like-count">{{ quote.count_like === 0 ? null : quote.count_like }}</span>
         </div>
       </div>
     </div>

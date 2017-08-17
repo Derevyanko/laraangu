@@ -41,7 +41,7 @@ export class QuoteService {
 		return this.http.delete(`${this.API}/api/quote/${id}?token=${this.token}`);
 	}
 
-	likedPost(quoteId: number) {
+  likedQuote(quoteId: number) {
 	  const body = {
       quoteId: quoteId,
       isLike: true

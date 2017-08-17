@@ -56,15 +56,17 @@ export class QuoteComponent implements OnInit, DoCheck {
   		);
   }
 
-  onLikePost() {
-    this.quoteService.likedPost(this.quote.id)
+  onLikeQuote() {
+    this.quoteService.likedQuote(this.quote.id)
       .subscribe(
         data => {
           console.log(data);
           if (data.like === 'save') {
             console.log('red');
+            this.quote.count_like = data.count_like;
           } else {
             console.log('white');
+            this.quote.count_like = data.count_like === 0 ? null : data.count_like;
           }
         }
       );
