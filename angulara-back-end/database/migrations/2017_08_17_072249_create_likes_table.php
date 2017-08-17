@@ -13,10 +13,11 @@ class CreateLikesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('likes');
         Schema::create('likes', function(Blueprint $table){
             $table->increments('id');
             $table->integer('id_user');
-            $table->integer('id_quotes');
+            $table->integer('id_quote');
             $table->boolean('likes');
             $table->timestamps();
 
