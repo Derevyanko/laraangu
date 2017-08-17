@@ -35,3 +35,16 @@ Route::post('/user/signin', [
 Route::get('/get_auth_user', [
     'uses' => 'UserController@get_auth_user'
 ]);
+
+Route::get('/get_auth_user', [
+    'uses' => 'UserController@get_auth_user'
+]);
+
+Route::get('/get_quote_user', [
+    'uses' => 'UserController@get_quotes_by_user',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::post('/like',[
+    'uses' => 'QuoteController@likes'
+]);

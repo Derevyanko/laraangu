@@ -73,7 +73,7 @@ class UserController extends Controller
         }
 
         $user = JWTAuth::toUser($token);
-
+        
         return response()->json([
             'user' => $user,
             'token' => $token
@@ -87,5 +87,12 @@ class UserController extends Controller
         }
 
         return response()->json(compact('user'));
+    }
+
+    public function get_quotes_by_user(){
+        if (!$user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        return User::find($user->id)->quotes;
     }
 }
