@@ -4,7 +4,10 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png" alt="">
     </a>
     <div class="quote-item-body">
-      <div class="quote-content">{{ quote.content }}</div>
+      <div>
+        <div class="quote-date">{{ quote.created_at }}</div>
+        <div class="quote-content">{{ quote.content }}</div>
+      </div>
       <div *ngIf="isLogin" class="editing-panel">
         <div *ngIf="editing">
           <input type="text" [(ngModel)]="editValue"><br><br>
@@ -22,10 +25,14 @@
             <!--<img src="" alt="">-->
             <i class="fa fa-user-circle" aria-hidden="true"></i>
           </div>
-          <div class="authorLockup">Code Girl</div>
+          <div class="authorLockup">{{ quote.user.name }}</div>
         </div>
         <div *ngIf="isLogin" class="quote-like" (click)="onLikeQuote()">
-          <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <i
+            class="fa fa-heart-o"
+            aria-hidden="true"
+            appLike
+            [quoteLikes]="quote.likes"></i>
           <span class="like-count">{{ quote.count_like === 0 ? null : quote.count_like }}</span>
         </div>
       </div>
