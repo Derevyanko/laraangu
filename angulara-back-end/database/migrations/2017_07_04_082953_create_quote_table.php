@@ -20,7 +20,8 @@ class CreateQuoteTable extends Migration
             $table->text('title');
             $table->string('image');
             $table->integer('id_user');
-            $table->timestamps();
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

@@ -20,7 +20,6 @@ class CreateLikesTable extends Migration
             $table->integer('id_quote');
             $table->boolean('likes');
             $table->timestamps();
-
         });
     }
 
