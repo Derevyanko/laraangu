@@ -13,11 +13,12 @@ export class QuoteService {
   API = "http://localhost:8080";
   token = this.authService.getToken();
 
-  addQuote(title: string, content: string, photo: object) {
+  addQuote(title: string, content: string, photo: any) {
+    const input = new FormData();
     const body = JSON.stringify({
       title: title,
       content: content,
-      photo: photo
+      photo: input.append('photo', photo)
     });
     const headers = new Headers({"Content-Type": "application/json"});
     return this.http.post(`${this.API}/api/quote?token=${this.token}`, body, {headers: headers});
