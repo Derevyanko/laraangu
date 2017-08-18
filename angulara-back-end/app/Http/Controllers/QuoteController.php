@@ -15,6 +15,7 @@ class QuoteController extends Controller
 {
     public function postQuote(Request $request){
 
+        dd($request);
         $user = JWTAuth::parseToken()->toUser();
 //        $this->validate($request, [
 //            'content' => 'required',
@@ -22,7 +23,7 @@ class QuoteController extends Controller
 //            'image' => 'required'
 //        ]);
         $image_upload = Input::file('photo');
-        dd($image_upload);
+       // dd($image_upload);
 //        $path = 'images/posts';
 //        $image = $this->imageUpload($image_upload, $path);
         $quote = new Quote();
