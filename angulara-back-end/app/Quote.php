@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quote extends Model
 {
+    protected $dateFormat = 'Y-m-d';
     protected $table = 'qoutes';
 
     

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Likes;
 use App\Quote;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -20,11 +21,14 @@ class QuoteController extends Controller
 //            'title'   => 'required',
 //            'image' => 'required'
 //        ]);
-//        $image_upload = Input::file('photo');
+        $image_upload = Input::file('photo');
+        dd($image_upload);
 //        $path = 'images/posts';
 //        $image = $this->imageUpload($image_upload, $path);
         $quote = new Quote();
+        $quote->title = $request->input('title');
         $quote->content = $request->input('content');
+        $quote->image = 'sdfdsfs';
         $quote->id_user = $user->id;
         $quote->save();
         return response()->json(['quote' => $quote, 'user' => $user], 201);
@@ -34,6 +38,7 @@ class QuoteController extends Controller
     {
         $quotes = Quote::with('user')->with('likes')->get();
         foreach ($quotes as $quote) {
+
             $count_like = count($quote->likes);
             $quote->count_like = $count_like;
         }
@@ -50,6 +55,7 @@ class QuoteController extends Controller
             return response()->json(['message' => 'Not found'], 404);
         }
         $quote->content = $request->input('content');
+        $quote->updated_at = Carbon::now()->toDateString();
         $quote->save();
         return response()->json(['quote' => $quote], 200);
     }
