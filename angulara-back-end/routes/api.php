@@ -48,3 +48,7 @@ Route::get('/get_quote_user', [
 Route::post('/like',[
     'uses' => 'QuoteController@likes'
 ]);
+
+Route::post('/upload',[
+    'uses' => 'QuoteController@imageUpload'
+]);

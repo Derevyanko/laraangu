@@ -6,16 +6,23 @@ use App\Likes;
 use App\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use JWTAuth;
+use App\Functions;
 
 class QuoteController extends Controller
 {
     public function postQuote(Request $request){
 
         $user = JWTAuth::parseToken()->toUser();
-        $this->validate($request, [
-            'content' => 'required'
-        ]);
+//        $this->validate($request, [
+//            'content' => 'required',
+//            'title'   => 'required',
+//            'image' => 'required'
+//        ]);
+//        $image_upload = Input::file('photo');
+//        $path = 'images/posts';
+//        $image = $this->imageUpload($image_upload, $path);
         $quote = new Quote();
         $quote->content = $request->input('content');
         $quote->id_user = $user->id;
@@ -84,6 +91,7 @@ class QuoteController extends Controller
         }else{
             $like = new Likes();
         }
+
         $like->id_user = $user->id;
         $like->id_quote = $quote_id;
         $like->likes = $is_like;
@@ -96,6 +104,13 @@ class QuoteController extends Controller
         }
 
     }
+
+
+    public function imageUpload($file, $path){
+        $image = Functions::UploadImage($path, $file);
+        return $image;
+    }
+    
 
  
 }
