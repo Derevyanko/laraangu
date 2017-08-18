@@ -18,7 +18,7 @@ export class QuotesComponent implements OnInit {
     this.quoteService.getQuotes()
       .subscribe(
         (quotes: Quote[]) => {
-          console.log(quotes);
+          console.log('Array quotes ', quotes);
           this.quotes = quotes;
         },
         (error: Response) => console.log(error)
