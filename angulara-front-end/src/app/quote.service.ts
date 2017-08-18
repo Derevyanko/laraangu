@@ -15,13 +15,18 @@ export class QuoteService {
 
   addQuote(title: string, content: string, photo: any) {
     const input = new FormData();
-    const body = JSON.stringify({
+    input.append('photo', photo);
+    const options = { photo: input };
+    const quoteContent = JSON.stringify({
       title: title,
-      content: content,
-      photo: input.append('photo', photo)
+      content: content
     });
-    const headers = new Headers({"Content-Type": "application/json"});
-    return this.http.post(`${this.API}/api/quote?token=${this.token}`, body, {headers: headers});
+    const body = {
+      options: options,
+      body: quoteContent
+    };
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(`${this.API}/api/quote?token=${this.token}`, body,{headers: headers});
   }
 
   getQuotes(): Observable<any> {
