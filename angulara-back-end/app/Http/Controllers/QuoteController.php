@@ -17,7 +17,7 @@ class QuoteController extends Controller
 
         if ($request->hasFile('quoteImg')) {
             $file = $request->quoteImg;
-            $path = '/images/posts';
+            $path = 'images/posts';
             $imageUrl = $this->imageUpload($file, $path);
         }
 
