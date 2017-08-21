@@ -3,7 +3,7 @@
 }
 
 .quote-item {
-  //min-height: 280px;
+  // min-height: 280px;
   background: #ffffff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -22,7 +22,7 @@
 }
 
 .quote-item-body {
-  //height: 180px;
+  // height: 180px;
   padding: 15px;
 }
 
@@ -98,5 +98,5 @@
 }
 
 .quote-like i:hover {
-  color: #0092E3;
+  color: red;
 }

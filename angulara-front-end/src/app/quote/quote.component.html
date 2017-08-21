@@ -1,12 +1,12 @@
 <div class="quote">
   <div class="quote-item">
     <a href="#">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png" alt="">
+      <img [src]="quote.image" alt="">
     </a>
     <div class="quote-item-body">
       <div>
         <div class="quote-date">{{ quote.created_at }}</div>
-        <div class="quote-content">{{ quote.content }}</div>
+        <div class="quote-content">{{ quote.title }}</div>
       </div>
       <div *ngIf="isLogin" class="editing-panel">
         <div *ngIf="editing">

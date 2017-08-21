@@ -1,8 +1,10 @@
 export interface Quote {
   id: number;
+  title: string;
   content: string;
   created_at: string;
   count_like: number;
+  image: string;
   user: {
     id: number,
     name: string,
