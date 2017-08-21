@@ -36,12 +36,18 @@ Route::get('/get_auth_user', [
     'uses' => 'UserController@get_auth_user'
 ]);
 
-Route::get('/get_auth_user', [
-    'uses' => 'UserController@get_auth_user'
+Route::get('/get_all_user', [
+    'uses' => 'BlogController@get_all_users',
+    'middleware' => 'auth.jwt'
 ]);
 
-Route::get('/get_quote_user', [
-    'uses' => 'UserController@get_quotes_by_user',
+Route::get('/get_quotes_by_auth_user', [
+    'uses' => 'UserController@get_quotes_by_auth_user',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::get('/get_all_quotes_user/{id}', [
+    'uses' => 'UserController@get_all_quotes_user',
     'middleware' => 'auth.jwt'
 ]);
 
