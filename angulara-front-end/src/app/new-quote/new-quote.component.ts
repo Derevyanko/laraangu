@@ -30,7 +30,7 @@ export class NewQuoteComponent implements OnInit {
 
     this.quoteService.addQuote(formData)
       .subscribe(
-        () => this.alertService.success("Quote successfully created!", true)
+        () => this.alertService.success('Quote successfully created!', true)
       );
     form.reset();
   }

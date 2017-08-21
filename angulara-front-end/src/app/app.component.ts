@@ -1,5 +1,5 @@
-import { Component, DoCheck } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, DoCheck} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthService} from "./auth.service";
 
 @Component({
@@ -9,11 +9,12 @@ import {AuthService} from "./auth.service";
 })
 export class AppComponent implements DoCheck {
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {
+  }
 
   logged: boolean = false;
 
   ngDoCheck() {
-  	this.logged = this.authService.isLogin();
+    this.logged = this.authService.isLogin();
   }
 }
