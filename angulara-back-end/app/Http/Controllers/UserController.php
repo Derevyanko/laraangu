@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Quote;
 
 
 class UserController extends Controller
@@ -45,7 +46,6 @@ class UserController extends Controller
                 'message' => 'Success'
             ], 201);
         }else{
-
             return response()->json([
                 'message' => 'Error'
             ], 401);
@@ -80,7 +80,8 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function get_auth_user(){
+    public function get_auth_user()
+    {
 
         if (!$user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
@@ -89,10 +90,26 @@ class UserController extends Controller
         return response()->json(compact('user'));
     }
 
-    public function get_quotes_by_user(){
+    public function get_quotes_by_auth_user()
+    {
         if (!$user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
         return User::find($user->id)->quotes;
+    }
+
+    public function get_all_quotes_user($id)
+    {
+        if(isset($id)){
+            $quotes = Quote::where('id_user',$id)->with('user')->with('likes')->get();
+            return response()->json([
+                'quotes' => $quotes,
+                'message' => 'Success'
+            ], 201);
+        }else{
+            return response()->json([
+                'message' => 'Error'
+            ], 401);
+        }
     }
 }

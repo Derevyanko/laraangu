@@ -6,10 +6,10 @@ use App\Likes;
 use App\Quote;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use JWTAuth;
 use App\Functions;
+use Illuminate\Support\Facades\File;
 
 class QuoteController extends Controller
 {
@@ -61,6 +61,7 @@ class QuoteController extends Controller
     public function deleteQuote($id)
     {
         $quote = Quote::find($id);
+        File::delete($quote->image);
         $quote->delete();
         return response()->json(['quote' => 'Quote delete'], 200);
     }
@@ -108,8 +109,7 @@ class QuoteController extends Controller
         }
 
     }
-
-
+    
     public function imageUpload($file, $path){
         $image = Functions::UploadImage($path, $file);
         return $image;
