@@ -14,25 +14,27 @@ use App\Functions;
 class QuoteController extends Controller
 {
     public function postQuote(Request $request){
+        
+        //$user = JWTAuth::parseToken()->toUser();
 
-        dd($request);
-        $user = JWTAuth::parseToken()->toUser();
+       // $user = JWTAuth::parseToken()->toUser();
 //        $this->validate($request, [
 //            'content' => 'required',
 //            'title'   => 'required',
 //            'image' => 'required'
 //        ]);
-        $image_upload = Input::file('photo');
+  //      $image_upload = Input::file('photo');
        // dd($image_upload);
 //        $path = 'images/posts';
 //        $image = $this->imageUpload($image_upload, $path);
-        $quote = new Quote();
-        $quote->title = $request->input('title');
-        $quote->content = $request->input('content');
-        $quote->image = 'sdfdsfs';
-        $quote->id_user = $user->id;
-        $quote->save();
-        return response()->json(['quote' => $quote, 'user' => $user], 201);
+
+//        $quote = new Quote();
+//        $quote->title = Input::get('quoteTitle');
+//        $quote->content = Input::get('quoteContent');
+//        $quote->image = 'sdfdsfs';
+//        $quote->id_user = $user->id;
+//        $quote->save();
+//        return response()->json(['quote' => $quote, 'user' => $user], 201);
     }
 
     public function getQuotes()
