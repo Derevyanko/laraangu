@@ -17,6 +17,8 @@ import { GetUserComponent } from './get-user/get-user.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert.service';
 import { AuthGuard } from './auth.guard';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsService } from './notifications/notifications.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { AuthGuard } from './auth.guard';
     SigninComponent,
     GetUserComponent,
     AlertComponent,
-    LikeDirective
+    LikeDirective,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { AuthGuard } from './auth.guard';
     QuoteService,
     AuthService,
     AlertService,
-    AuthGuard
+    AuthGuard,
+    NotificationsService
   ],
   bootstrap: [AppComponent]
 })

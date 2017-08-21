@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms'
 
 import {QuoteService} from '../quote.service';
 import {AlertService} from '../alert.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { Notification } from '../notifications/notifications.model';
 
 @Component({
   selector: 'app-new-quote',
@@ -11,10 +13,12 @@ import {AlertService} from '../alert.service';
 })
 export class NewQuoteComponent implements OnInit {
 
+  @ViewChild('quoteImg') quoteFileImg: any;
   quoteImg;
 
   constructor(private quoteService: QuoteService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
@@ -30,9 +34,13 @@ export class NewQuoteComponent implements OnInit {
 
     this.quoteService.addQuote(formData)
       .subscribe(
-        () => this.alertService.success('Quote successfully created!', true)
+        () => {
+          this.notificationsService.add(new Notification('success', 'Quote successfully created!'));
+          // this.alertService.success('Quote successfully created!', true)
+        }
       );
     form.reset();
+    this.quoteFileImg.nativeElement.value = '';
   }
 
   fileUpload(event) {
