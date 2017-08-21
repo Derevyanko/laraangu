@@ -14,37 +14,32 @@ use App\Functions;
 class QuoteController extends Controller
 {
     public function postQuote(Request $request){
-        
-        //$user = JWTAuth::parseToken()->toUser();
 
-       // $user = JWTAuth::parseToken()->toUser();
-//        $this->validate($request, [
-//            'content' => 'required',
-//            'title'   => 'required',
-//            'image' => 'required'
-//        ]);
-  //      $image_upload = Input::file('photo');
-       // dd($image_upload);
-//        $path = 'images/posts';
-//        $image = $this->imageUpload($image_upload, $path);
+        if ($request->hasFile('quoteImg')) {
+            $file = $request->quoteImg;
+            $path = '/images/posts';
+            $imageUrl = $this->imageUpload($file, $path);
+        }
 
-//        $quote = new Quote();
-//        $quote->title = Input::get('quoteTitle');
-//        $quote->content = Input::get('quoteContent');
-//        $quote->image = 'sdfdsfs';
-//        $quote->id_user = $user->id;
-//        $quote->save();
-//        return response()->json(['quote' => $quote, 'user' => $user], 201);
+        $user = JWTAuth::parseToken()->toUser();
+        $quote = new Quote();
+        $quote->title = $request->quoteTitle;
+        $quote->content = $request->quoteContent;
+        $quote->image = $imageUrl;
+        $quote->id_user = $user->id;
+        $quote->save();
+        return response()->json(['quote' => $quote, 'user' => $user], 201);
     }
 
     public function getQuotes()
     {
         $quotes = Quote::with('user')->with('likes')->get();
         foreach ($quotes as $quote) {
-
             $count_like = count($quote->likes);
             $quote->count_like = $count_like;
+            $quote->image = env('APP_URL') . $quote->image;
         }
+
         $response = [
             'quotes' => $quotes
         ];
