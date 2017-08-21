@@ -10,12 +10,11 @@ export class QuoteService {
   constructor(private http: Http, private authService: AuthService) {
   }
 
-  API = "http://localhost:8080";
+  API = 'http://localhost:8080';
   token = this.authService.getToken();
 
   addQuote(formData) {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(`${this.API}/api/quote?token=${this.token}`, formData,{headers: headers});
+    return this.http.post(`${this.API}/api/quote?token=${this.token}`, formData);
   }
 
   getQuotes(): Observable<any> {
