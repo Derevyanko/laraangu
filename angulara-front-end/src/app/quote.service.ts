@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http, Response, Headers} from "@angular/http";
 import "rxjs/Rx";
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs/Observable';
 
 import {AuthService} from './auth.service';
 
@@ -13,20 +13,9 @@ export class QuoteService {
   API = "http://localhost:8080";
   token = this.authService.getToken();
 
-  addQuote(title: string, content: string, photo: any) {
-    const input = new FormData();
-    input.append('photo', photo);
-    const options = { photo: input };
-    const quoteContent = JSON.stringify({
-      title: title,
-      content: content
-    });
-    const body = {
-      options: options,
-      body: quoteContent
-    };
+  addQuote(formData) {
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(`${this.API}/api/quote?token=${this.token}`, body,{headers: headers});
+    return this.http.post(`${this.API}/api/quote?token=${this.token}`, formData,{headers: headers});
   }
 
   getQuotes(): Observable<any> {
