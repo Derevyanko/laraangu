@@ -24,8 +24,8 @@ export class NewQuoteComponent implements OnInit {
     const quoteTitle = form.value.title;
     const quoteContent = form.value.content;
     const formData = new FormData();
-    formData.append('quoteTitle', quoteTitle);
-    formData.append('quoteContent', quoteContent);
+    formData.append('quoteTitle', JSON.stringify(quoteTitle));
+    formData.append('quoteContent', JSON.stringify(quoteContent));
     formData.append('quoteImg', this.quoteImg);
 
     this.quoteService.addQuote(formData)
