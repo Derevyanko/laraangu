@@ -15,20 +15,17 @@ class QuoteController extends Controller
 {
     public function postQuote(Request $request){
 
+        if ($request->hasFile('quoteImg')) {
+            $file = $request->quoteImg;
+            $path = 'images/posts';
+            $imageUrl = $this->imageUpload($file, $path);
+        }
+
         $user = JWTAuth::parseToken()->toUser();
-//        $this->validate($request, [
-//            'content' => 'required',
-//            'title'   => 'required',
-//            'image' => 'required'
-//        ]);
-        $image_upload = Input::file('photo');
-        dd($image_upload);
-//        $path = 'images/posts';
-//        $image = $this->imageUpload($image_upload, $path);
         $quote = new Quote();
-        $quote->title = $request->input('title');
-        $quote->content = $request->input('content');
-        $quote->image = 'sdfdsfs';
+        $quote->title = $request->quoteTitle;
+        $quote->content = $request->quoteContent;
+        $quote->image = $imageUrl;
         $quote->id_user = $user->id;
         $quote->save();
         return response()->json(['quote' => $quote, 'user' => $user], 201);
@@ -38,10 +35,11 @@ class QuoteController extends Controller
     {
         $quotes = Quote::with('user')->with('likes')->get();
         foreach ($quotes as $quote) {
-
             $count_like = count($quote->likes);
             $quote->count_like = $count_like;
+            $quote->image = env('APP_URL') . $quote->image;
         }
+
         $response = [
             'quotes' => $quotes
         ];
