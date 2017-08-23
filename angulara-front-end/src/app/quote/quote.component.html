@@ -8,7 +8,7 @@
         <div class="quote-date">{{ quote.created_at }}</div>
         <div class="quote-content">{{ quote.title }}</div>
       </div>
-      <div *ngIf="isLogin" class="editing-panel">
+      <!--<div *ngIf="isLogin" class="editing-panel">
         <div *ngIf="editing">
           <input type="text" [(ngModel)]="editValue"><br><br>
           <span (click)="onUpdate()">Save</span>
@@ -18,7 +18,7 @@
           <span (click)="onEdit()">Edit</span>
           <span (click)="onDelete()">Delete</span>
         </div>
-      </div>
+      </div>-->
       <div class="quote-social">
         <div class="quote-avatar">
           <div class="avatar">
@@ -27,12 +27,13 @@
           </div>
           <div class="authorLockup">{{ quote.user.name }}</div>
         </div>
-        <div *ngIf="isLogin" class="quote-like" (click)="onLikeQuote()">
+        <div *ngIf="isLogin" class="quote-like">
           <i
             class="fa fa-heart-o"
             aria-hidden="true"
             appLike
-            [quoteLikes]="quote.likes"></i>
+            [quoteLikes]="quote.likes"
+            (click)="onLikeQuote($event)"></i>
           <span class="like-count">{{ quote.count_like === 0 ? null : quote.count_like }}</span>
         </div>
       </div>

@@ -89,12 +89,12 @@
 .quote-like {
   display: flex;
   flex: 0 0 auto;
-  cursor: pointer;
 }
 
 .quote-like i {
   padding-right: 5px;
   font-size: 22px;
+  cursor: pointer;
 }
 
 .quote-like i:hover {

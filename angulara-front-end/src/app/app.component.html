@@ -8,11 +8,12 @@
         <ul class="nav navbar-nav">
           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['']">Quotes</a></li>
           <li routerLinkActive="active"><a [routerLink]="['/new-quote']" *ngIf="logged">Add a new Quote</a></li>
-          <li routerLinkActive="active"><a [routerLink]="['/get-user']" *ngIf="logged">Get User</a></li>
+          <li routerLinkActive="active"><a [routerLink]="['/get-user']" *ngIf="logged">Get All Users</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li routerLinkActive="active" *ngIf="!logged"><a [routerLink]="['/signup']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           <li routerLinkActive="active" *ngIf="!logged"><a [routerLink]="['/signin']"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+          <li routerLinkActive="active"><a [routerLink]="['/profile']" *ngIf="logged">Profile</a></li>
           <li *ngIf="logged"><a [routerLink]="['/signin']" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
         </ul>
       </div>

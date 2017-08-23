@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms'
+import {Router} from '@angular/router';
 
 import {QuoteService} from '../quote.service';
 import {AlertService} from '../alert.service';
@@ -18,7 +19,8 @@ export class NewQuoteComponent implements OnInit {
 
   constructor(private quoteService: QuoteService,
               private alertService: AlertService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -36,6 +38,9 @@ export class NewQuoteComponent implements OnInit {
       .subscribe(
         () => {
           this.notificationsService.add(new Notification('success', 'Quote successfully created!'));
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 3000);
           // this.alertService.success('Quote successfully created!', true)
         }
       );

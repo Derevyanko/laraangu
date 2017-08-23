@@ -8,13 +8,14 @@ import {
   Directive,
   ElementRef,
   Renderer2,
-  HostListener,
   AfterViewInit
 } from '@angular/core';
 
 import {Quote} from '../quote.interface';
 import {QuoteService} from '../quote.service';
 import {AuthService} from '../auth.service';
+import {NotificationsService} from '../notifications/notifications.service';
+import {Notification} from '../notifications/notifications.model';
 
 @Directive({
   selector: '[appLike]'
@@ -25,7 +26,8 @@ export class LikeDirective implements AfterViewInit {
   @Input() quoteLikes: Quote[];
   userID;
 
-  constructor(public el: ElementRef, public renderer: Renderer2) {
+  constructor(public el: ElementRef,
+              public renderer: Renderer2) {
   }
 
   ngAfterViewInit() {
@@ -37,15 +39,6 @@ export class LikeDirective implements AfterViewInit {
     });
   }
 
-  @HostListener('click') onLikeClick() {
-    this.quoteLikes.forEach(item => {
-      if (item['id_user'] === this.userID.id) {
-        this.renderer.setStyle(this.el.nativeElement, 'color', '#333');
-      } else {
-        this.renderer.setStyle(this.el.nativeElement, 'color', 'red');
-      }
-    });
-  }
 }
 
 @Component({
@@ -60,7 +53,10 @@ export class QuoteComponent implements OnInit, DoCheck {
   editValue = "";
   isLogin = false;
 
-  constructor(private quoteService: QuoteService, private authService: AuthService) {
+  constructor(private quoteService: QuoteService,
+              private authService: AuthService,
+              private notificationsService: NotificationsService,
+              public renderer: Renderer2) {
   }
 
   ngOnInit() {
@@ -96,20 +92,21 @@ export class QuoteComponent implements OnInit, DoCheck {
       .subscribe(
         () => {
           this.quoteDeleted.emit(this.quote);
-          console.log("Quote Delete")
+          this.notificationsService.add(new Notification('success', 'Quote successfully deleted!'));
         }
       );
   }
 
-  onLikeQuote() {
+  onLikeQuote(event) {
     this.quoteService.likedQuote(this.quote.id)
       .subscribe(
         data => {
-          console.log(data);
           if (data.like === 'save') {
             this.quote.count_like = data.count_like;
+            this.renderer.setStyle(event.target, 'color', 'red');
           } else {
             this.quote.count_like = data.count_like === 0 ? null : data.count_like;
+            this.renderer.setStyle(event.target, 'color', '#333');
           }
         }
       );
