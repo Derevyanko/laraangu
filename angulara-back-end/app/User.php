@@ -9,6 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $dateFormat = 'Y-m-d';
     /**
      * The attributes that are mass assignable.
      *
@@ -26,4 +27,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function quotes()
+    {
+        return $this->hasMany('App\Quote', 'id_user');
+    }
+
+    public function likes(){
+        return $this->hasMany('App\Likes', 'id_user');
+    }
 }

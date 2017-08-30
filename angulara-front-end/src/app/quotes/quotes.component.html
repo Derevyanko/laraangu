@@ -1,3 +1,5 @@
-<button class="btn btn-primary" (click)="onGetQuotes()">Get Quotes</button>
-<hr>
-<app-quote *ngFor="let quote of quotes" [quote]="quote" (quoteDeleted)="onDelete($event)"></app-quote>
+<div class="row">
+  <div class="col-md-4" *ngFor="let quote of quotes" >
+    <app-quote [quote]="quote" (quoteDeleted)="onDelete($event)"></app-quote>
+  </div>
+</div>

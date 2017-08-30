@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 import { AppComponent } from './app.component';
-import { QuoteComponent } from './quote/quote.component';
+import {LikeDirective, QuoteComponent} from './quote/quote.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { NewQuoteComponent } from './new-quote/new-quote.component';
 import { routing } from './app.routing';
@@ -18,6 +17,8 @@ import { GetUserComponent } from './get-user/get-user.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './alert.service';
 import { AuthGuard } from './auth.guard';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsService } from './notifications/notifications.service';
 
 @NgModule({
   declarations: [
@@ -28,21 +29,23 @@ import { AuthGuard } from './auth.guard';
     SignupComponent,
     SigninComponent,
     GetUserComponent,
-    AlertComponent
+    AlertComponent,
+    LikeDirective,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    BrowserAnimationsModule,
-    ToastModule.forRoot()
+    BrowserAnimationsModule
   ],
   providers: [
     QuoteService,
     AuthService,
     AlertService,
-    AuthGuard
+    AuthGuard,
+    NotificationsService
   ],
   bootstrap: [AppComponent]
 })

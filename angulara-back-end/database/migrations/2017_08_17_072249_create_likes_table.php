@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuoteTable extends Migration
+class CreateLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateQuoteTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('qoutes');
-        Schema::create('qoutes', function(Blueprint $table){
+        Schema::dropIfExists('likes');
+        Schema::create('likes', function(Blueprint $table){
             $table->increments('id');
-            $table->text('content');
-            $table->text('title');
-            $table->string('image');
             $table->integer('id_user');
-            $table->date('created_at');
-            $table->date('updated_at');
+            $table->integer('id_quote');
+            $table->boolean('likes');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +30,6 @@ class CreateQuoteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('qoutes');
+        Schema::dropIfExists('likes');
     }
 }

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms'
+import {Router} from '@angular/router';
 
-import { QuoteService } from '../quote.service';
-import { AlertService } from '../alert.service';
+import {QuoteService} from '../quote.service';
+import {AlertService} from '../alert.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { Notification } from '../notifications/notifications.model';
 
 @Component({
   selector: 'app-new-quote',
@@ -11,17 +14,45 @@ import { AlertService } from '../alert.service';
 })
 export class NewQuoteComponent implements OnInit {
 
-  constructor(private quoteService: QuoteService, private alertService: AlertService) { }
+  @ViewChild('quoteImg') quoteFileImg: any;
+  quoteImg;
+
+  constructor(private quoteService: QuoteService,
+              private alertService: AlertService,
+              private notificationsService: NotificationsService,
+              private router: Router) {
+  }
 
   ngOnInit() {
   }
 
   onSubmit(form: NgForm) {
-  	this.quoteService.addQuote(form.value.content)
-  		.subscribe(
-  			() => this.alertService.success("Quote successfully created!", true)
-  		);
-  	form.reset();
+    const quoteTitle = form.value.title;
+    const quoteContent = form.value.content;
+    const formData = new FormData();
+    formData.append('quoteTitle', JSON.stringify(quoteTitle));
+    formData.append('quoteContent', JSON.stringify(quoteContent));
+    formData.append('quoteImg', this.quoteImg);
+
+    this.quoteService.addQuote(formData)
+      .subscribe(
+        () => {
+          this.notificationsService.add(new Notification('success', 'Quote successfully created!'));
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 3000);
+          // this.alertService.success('Quote successfully created!', true)
+        }
+      );
+    form.reset();
+    this.quoteFileImg.nativeElement.value = '';
+  }
+
+  fileUpload(event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.quoteImg = fileList[0];
+    }
   }
 
 }
